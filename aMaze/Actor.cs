@@ -20,11 +20,12 @@ namespace aMaze
         public string name;
         public int[] startPoint;
         public string[,] map;///creates a map, of what the actor discovers, so it knows the visited squares
-
+        public int[,] map2;
 
         public Actor(Maze maze, string names) ///Actor constructor, it sets the maps starting position and size, 
                                               ///according to the maze object passed
         {
+            map2 = new int[maze.length, maze.width];
             name = names;///gives name to an Actor object
             map = new string[maze.length, maze.width];///initiallizes the notes with correct size
             startPoint = maze.start;///reads the startpoint from the maze object
@@ -64,7 +65,7 @@ namespace aMaze
                         }
                         else
                         {
-                            Console.BackgroundColor = ConsoleColor.Green;///all the exit path is paited green
+                            Console.BackgroundColor = ConsoleColor.Green;///all the exit path is painted green
                             Console.Write(map[i, k]);
                         }
                     }
@@ -99,6 +100,20 @@ namespace aMaze
                 map[y, x] = "G";
             else if (info == "DEADEND")
                 map[y, x] = "D";
+            else if (info == "CLEARPATH")
+            {
+                for (int i = 0; i < map.GetLength(0); i++)
+                {
+                    for (int k = 0; k < map.GetLength(1); k++)
+                    {
+                        if (map[i, k] == "+")
+                        {
+                            map[i, k] = "";
+                        }
+                    }
+                }
+            }
+            
         }
 
     }
