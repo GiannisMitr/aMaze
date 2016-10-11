@@ -45,7 +45,7 @@ namespace aMaze
             }
             else { Console.WriteLine("Exit is Blocked!...Maze is not Solvable!...\r\n Please Try Again with Another Maze"); }
 
-            Console.ReadLine();
+            
         }
 
         public void draw()///prints the exit path on the screen, (as drawing on the maze)
