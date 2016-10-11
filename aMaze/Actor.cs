@@ -20,12 +20,13 @@ namespace aMaze
         public string name;
         public int[] startPoint;
         public string[,] map;///creates a map, of what the actor discovers, so it knows the visited squares
-        public int[,] map2;
-
+        public int[,] mapWithCounts;///this map keeps for every visited square of the actors map, an int that shows the depth of the shortest branch that ever reached every square.
+            ///it is used only in the second algorithm
+            
         public Actor(Maze maze, string names) ///Actor constructor, it sets the maps starting position and size, 
                                               ///according to the maze object passed
         {
-            map2 = new int[maze.length, maze.width];
+            mapWithCounts = new int[maze.length, maze.width];///initiallizes the map for visits with the same size as the maze
             name = names;///gives name to an Actor object
             map = new string[maze.length, maze.width];///initiallizes the notes with correct size
             startPoint = maze.start;///reads the startpoint from the maze object
@@ -100,7 +101,7 @@ namespace aMaze
                 map[y, x] = "G";
             else if (info == "DEADEND")
                 map[y, x] = "D";
-            else if (info == "CLEARPATH")
+            else if (info == "CLEARPATH")///it clears only the exit path marks"+". from the actors map
             {
                 for (int i = 0; i < map.GetLength(0); i++)
                 {
