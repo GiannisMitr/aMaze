@@ -20,6 +20,7 @@ namespace aMaze
             Console.WriteLine("Hello, Welcome to aMaze!!");
             Console.WriteLine("Please type the file name of the Maze (excluding .txt):");
             string fileName = Console.ReadLine();
+            string strategyOption;
             while (!File.Exists(fileName + ".txt"))/// it makes sure the file exists
             {
                 Console.WriteLine("Please type an existant's file name:");
@@ -28,10 +29,20 @@ namespace aMaze
 
             Maze maze1 = new Maze(fileName);/// initializes the maze object loading the maze
             Actor actor1 = new Actor(maze1, "john");/// initializes the actor object
-            Boolean exit = strategy(maze1, actor1, maze1.start[0], maze1.start[1], 0);/// runs the recursive algorithm
-            maze1.draw();///draws the maze
-            actor1.draw();///draws on top of the maze, the Actors path to Exit
-            actor1.print(exit);///prints the coordinates of the Actors Path (if the algorithm found one exit=true)
+            Console.WriteLine("Please Choose a strategy,\r\n Type 1 for simple recursive aglorithm\r\n or type 2 for an advanced recursive (finds the shortest path) but Slow:");
+            strategyOption = Console.ReadLine();
+            while (strategyOption!="1"&& strategyOption != "2")/// it makes sure the file exists
+            {
+                Console.WriteLine("Please type a correct strategy number/r/n Type 1 for simple recursive aglorithm\r\n or type 2 for an advanced recursive (finds the shortest path) but Slow: ");
+                strategyOption = Console.ReadLine();
+                
+
+            }
+            Strategy strategy1 = new Strategy(strategyOption, maze1, actor1, maze1.start[0], maze1.start[1], 0);
+            ///Boolean []exit = strategy(maze1, actor1, maze1.start[0], maze1.start[1], 0);/// runs the recursive algorithm
+           maze1.draw();///draws the maze
+           actor1.draw();///draws on top of the maze, the Actors path to Exit
+            actor1.print(strategy1.Result[1]);///prints the coordinates of the Actors Path (if the algorithm found one exit=true)
         }
 
         /*The strategy method (can become an object and a collection of more strategies in the future)
@@ -43,75 +54,7 @@ namespace aMaze
          
          The Algorithm's efficiency depends largely, on the order that the various branches (up,down.left.right)
          are executed and prioritized, The direction that executes first marks first it's path as visited, and blocks the 
-         execution of other, possible, sortest branches*/
-
-        static bool strategy(Maze maze, Actor actor, int yPosition, int xPosition, int count)
-
-        {
-
-            count += 1;
-              
-            if (maze.ask(yPosition, xPosition) == "X")///ask maze if the current square is blocked 
-            {
-                return false;///then if it is blocked return with false to the caller method
-            }
-            else if (maze.ask(yPosition, xPosition) == "OOM")///Out Of Maze square
-            {
-
-                return false;
-            }
-            else if (maze.ask(yPosition, xPosition) == "EXIT")///if it is the exit!!!!!
-            {
-                
-                if (actor.map2[yPosition, xPosition] <= count && actor.map2[yPosition, xPosition] !=0)
-                   {
-                     return false;
-                   }
-                else
-                {                   
-                    actor.exitPath.Clear();
-                    /// actor.writeMap(0,0,"CLEARPATH");
-                    actor.map2[yPosition, xPosition] = count;
-                    actor.exitPath.Push((yPosition + 1).ToString() + "," + (xPosition + 1).ToString());///push it to the Exit Path stack!
-                    actor.writeMap(yPosition, xPosition, "EXIT");///  update actors map
-                    return true;
-                }///  bubble up a true boolean to the caller and mark the exit path
-            }
-            else if (actor.readMap(yPosition, xPosition) == "DEADEND")
-            {
-
-                return false;
-            }
-            else if (actor.map2[yPosition, xPosition] != 0) ///if was visited before
-            {
-                if (count > actor.map2[yPosition, xPosition])
-                    return false;
-            }
-            else
-            { actor.map2[yPosition, xPosition] = count; }///mark the square as visited, 
-                                                         ///cause if not no memory of past actions, and infinity!
-
-            ///Check recursively using the same method for exit in paths that start from the square 
-            ///that lies down or right or up or left of current position, and return true if an Exit path is found
-
-            bool Exit = strategy(maze, actor, yPosition - 1, xPosition, count)
-                          | strategy(maze, actor, yPosition, xPosition + 1, count)
-                          | strategy(maze, actor, yPosition + 1, xPosition, count)
-                          | strategy(maze, actor, yPosition, xPosition - 1, count);
-
-            if (Exit)
-            {
-                actor.writeMap(yPosition, xPosition, "EXITPATH");///if the path started from here, leads to an exit then mark the exit path
-                actor.exitPath.Push((yPosition + 1).ToString() + "," + (xPosition + 1).ToString());///push it to the Exit Path stack!
-
-            }
-            else
-            {
-                actor.writeMap(yPosition, xPosition, "DEADEND"); ///if not, mark the square as dead end path
-            }
-
-            return Exit;/// return to the caller function if this is an EXIT path.
-        }
+         execution of other, possible, sortest branches*/   
 
     }
 }
