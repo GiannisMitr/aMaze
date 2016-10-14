@@ -21,8 +21,8 @@ namespace aMaze
         public int[] startPoint;
         public string[,] map;///creates a map, of what the actor discovers, so it knows the visited squares
         public int[,] mapWithCounts;///this map keeps for every visited square of the actors map, an int that shows the depth of the shortest branch that ever reached every square.
-            ///it is used only in the second algorithm
-            
+                                    ///it is used only in the second algorithm
+
         public Actor(Maze maze, string names) ///Actor constructor, it sets the maps starting position and size, 
                                               ///according to the maze object passed
         {
@@ -46,7 +46,7 @@ namespace aMaze
             }
             else { Console.WriteLine("Exit is Blocked!...Maze is not Solvable!...\r\n Please Try Again with Another Maze"); }
 
-            
+
         }
 
         public void draw()///prints the exit path on the screen, (as drawing on the maze)
@@ -114,7 +114,7 @@ namespace aMaze
                     }
                 }
             }
-            
+
         }
 
     }

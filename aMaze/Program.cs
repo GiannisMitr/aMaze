@@ -21,7 +21,7 @@ namespace aMaze
             string strategyOption;
             string runAgain = "y";
 
-            while (runAgain == "y"|| runAgain == "Y"||runAgain == "yes"||runAgain == "YES")///outer loop for program repetition
+            while (runAgain == "y" || runAgain == "Y" || runAgain == "yes" || runAgain == "YES")///outer loop for program repetition
             {
                 /// Greets and asks for a filename   
                 Console.Clear();
@@ -47,7 +47,7 @@ namespace aMaze
 
                 }
                 strategyResult = Strategy.strategy(strategyOption, maze1, actor1, maze1.start[0], maze1.start[1], 0);///calls the static method strategy of the class Strategy that returns the result of the chosen algorithm
-                
+
                 maze1.draw();///draws the maze
                 actor1.draw();///draws on top of the maze, the Actors path to Exit
                 actor1.print(strategyResult[1]);///prints the coordinates of the Actors Path (if the algorithm found that exit path exists)
@@ -55,7 +55,7 @@ namespace aMaze
                 Console.Write("\r\n\r\nDo you want to run again?? (press (y)es and hit enter):");
                 runAgain = Console.ReadLine();
             }
-            }
+        }
 
     }
 }

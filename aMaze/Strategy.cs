@@ -8,23 +8,20 @@ namespace aMaze
 {
     static class Strategy
     {
-       public static int numberOfStrategies=2;/// the numbers of strategy options
-         
+        public static int numberOfStrategies = 2;/// the numbers of strategy options
 
-        public static Boolean[] strategy(string strategyNumber, Maze maze, Actor actor, int yPosition, int xPosition, int count) ///strategy public static interface, takes the arguments for the selected strategy 
-            ///and calls the apropriate private mathod of the given strategy 
+        public static Boolean[] strategy(string strategyNumber, Maze maze, Actor actor, int yPosition, int xPosition, int count) ///strategy public static interface, takes the arguments for the selected strategy                                                                                                                        ///and calls the apropriate private mathod of the given strategy 
         {
             Boolean[] Result = new bool[2] { false, false };///stores the results of the chosen strategy
 
-            if (strategyNumber=="1")///runs the given method with correct arguments and returns a boolean array with its results
-            { Result[1]=strategy1(maze, actor, yPosition, xPosition); }
-            else if(strategyNumber == "2")
-            { Result=strategy2(maze, actor, yPosition, xPosition, count); }
+            if (strategyNumber == "1")///runs the given method with correct arguments and returns a boolean array with its results
+            { Result[1] = strategy1(maze, actor, yPosition, xPosition); }
+            else if (strategyNumber == "2")
+            { Result = strategy2(maze, actor, yPosition, xPosition, count); }
             return Result;
         }
 
-            
-
+        
         /*The strategy method takes as parameters the Maze object the Actor object, and the present position, and implements 
          a recursive algorithm that traverses the Maze, updates Actors map of the Maze, and when reaches the Exit,
          it Bubbles up to the surface...to the first caller instance of the method, marking the Exit path.
@@ -115,7 +112,7 @@ namespace aMaze
             {
 
                 if (actor.mapWithCounts[yPosition, xPosition] <= count && actor.mapWithCounts[yPosition, xPosition] != 0)///if there is another exitpath but it is shortert that current branch depth (count)
-                
+
                 {
                     return new Boolean[] { true, false };///then return [true false], the first boolean that we got an exit path, but the second one states that the current is not the shortest.
                 }
@@ -137,7 +134,7 @@ namespace aMaze
             }
             else
             { actor.mapWithCounts[yPosition, xPosition] = count; }///mark the square as visited, 
-                                                         ///cause if not no memory of past actions, and infinity!
+                                                                  ///cause if not no memory of past actions, and infinity!
 
             ///Check recursively using the same method for exit in paths that start from the square 
             ///that lies down or right or up or left of current position, and return true if an Exit path is found
@@ -159,8 +156,9 @@ namespace aMaze
                 return new Boolean[] { true, false };
 
             }
-            else {///if there is no exit path all the way around(the square that we came from gives false because of depth counter)
-                
+            else
+            {///if there is no exit path all the way around(the square that we came from gives false because of depth counter)
+
                 actor.writeMap(yPosition, xPosition, "DEADEND");///then mark this square as dead end
                 return new Boolean[] { false, false };///and return no exit path mark
             }
