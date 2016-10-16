@@ -3,13 +3,14 @@
 
 This program was developed as part of the coding camp ([AFDEmp]) courses.
 
-It loads a maze from a file, computes and prints the exit path.
+Loads a maze from a file, computes and prints the exit path.
 
-It supports two different recursive maze solving algorithms
+Supports two different recursive maze solving algorithms
 
 There is **NO** gun-powder invention *(Greek joke!)*.
 
-The basic recursive maze-solving algorithm was heavily inspired from [here]. 
+The basic recursive maze-solving algorithm was heavily inspired from [here].
+
 Additionally, an alternate modified edition of the first algorithm, was developed that computes the shortest path (but is computationally inefficient).
 
 ###USAGE
